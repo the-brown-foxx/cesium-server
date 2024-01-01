@@ -41,4 +41,5 @@ dependencies {
     implementation("dev.turingcomplete:kotlin-onetimepassword:2.4.0")
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.7")
 }

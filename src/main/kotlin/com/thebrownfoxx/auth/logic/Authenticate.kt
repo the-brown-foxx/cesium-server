@@ -15,6 +15,22 @@ suspend fun PipelineContext<Unit, ApplicationCall>.authenticated(adminService: A
     return principal?.getPasswordKey() == admin.passwordKey
 }
 
+fun Route.authenticatedGet(
+    path: String,
+    adminService: AdminService,
+    block: suspend PipelineContext<Unit, ApplicationCall>.() -> Unit,
+) {
+    authenticate {
+        get(path) {
+            if (!authenticated(adminService)) {
+                call.respond(HttpStatusCode.Unauthorized)
+                return@get
+            }
+            block()
+        }
+    }
+}
+
 fun Route.authenticatedPost(
     path: String,
     adminService: AdminService,
@@ -31,16 +47,16 @@ fun Route.authenticatedPost(
     }
 }
 
-fun Route.authenticatedGet(
+fun Route.authenticatedPatch(
     path: String,
     adminService: AdminService,
     block: suspend PipelineContext<Unit, ApplicationCall>.() -> Unit,
 ) {
     authenticate {
-        get(path) {
+        patch(path) {
             if (!authenticated(adminService)) {
                 call.respond(HttpStatusCode.Unauthorized)
-                return@get
+                return@patch
             }
             block()
         }

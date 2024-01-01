@@ -1,6 +1,5 @@
-package com.thebrownfoxx.totp
+package com.thebrownfoxx.totp.logic
 
-import com.thebrownfoxx.totp.logic.toBase32
 import com.thebrownfoxx.totp.models.Base32
 
 fun generateTotpSecret(): Base32 {

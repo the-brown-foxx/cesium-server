@@ -1,6 +1,5 @@
-package com.thebrownfoxx.totp
+package com.thebrownfoxx.totp.logic
 
-import com.thebrownfoxx.totp.logic.encrypt
 import com.thebrownfoxx.totp.models.UnsavedAccessor
 
 fun newAccessor(name: String) = UnsavedAccessor(

@@ -37,5 +37,5 @@ fun Application.module() {
     configureHTTP()
     configureMonitoring()
     configureSerialization()
-    configureDatabases(jwtConfig, userService, accessorService)
+    configureRouting(jwtConfig, userService, accessorService)
 }

@@ -1,6 +1,7 @@
 package com.thebrownfoxx.totp
 
 import com.thebrownfoxx.totp.logic.encrypt
+import com.thebrownfoxx.totp.logic.generateTotpSecret
 import com.thebrownfoxx.totp.logic.toBase32
 import com.thebrownfoxx.totp.models.EncryptedBase32
 import com.thebrownfoxx.totp.models.SavedAccessor
@@ -13,7 +14,7 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class ExposedAccessorService(private val database: Database): AccessorService {
+class ExposedAccessorService(database: Database): AccessorService {
     object Accessors: Table() {
         val id = integer("id").autoIncrement()
         val name = varchar("name", length = 50)
@@ -88,11 +89,18 @@ class ExposedAccessorService(private val database: Database): AccessorService {
         )
     }
 
-    override suspend fun update(accessor: SavedAccessor) {
+    override suspend fun updateName(id: Int, name: String) {
         dbQuery {
-            Accessors.update({ Accessors.id eq accessor.id }) {
-                it[name] = accessor.name
-                it[totpSecret] = accessor.totpSecret.value
+            Accessors.update({ Accessors.id eq id }) {
+                it[Accessors.name] = name
+            }
+        }
+    }
+
+    override suspend fun refreshTotpSecret(id: Int) {
+        dbQuery {
+            Accessors.update({ Accessors.id eq id }) {
+                it[totpSecret] = generateTotpSecret().encrypt().value
             }
         }
     }

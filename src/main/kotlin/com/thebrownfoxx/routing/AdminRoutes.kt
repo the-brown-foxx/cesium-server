@@ -4,6 +4,7 @@ import com.thebrownfoxx.auth.AdminService
 import com.thebrownfoxx.auth.logic.*
 import com.thebrownfoxx.models.auth.ChangeCredentials
 import com.thebrownfoxx.models.auth.JWTConfig
+import com.thebrownfoxx.models.auth.LoginCredentials
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -24,13 +25,13 @@ fun Route.login(
     adminService: AdminService,
 ) {
     post("/login") {
-        val password = call.receiveNullable<String>()
-        if (password == null) {
+        val loginCredentials = call.receiveNullable<LoginCredentials>()
+        if (loginCredentials == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@post
         }
         val admin = adminService.get()
-        if (!(password matches admin.passwordHash)) {
+        if (loginCredentials.password doesNotMatch admin.passwordHash) {
             call.respond(HttpStatusCode.Unauthorized)
             return@post
         }

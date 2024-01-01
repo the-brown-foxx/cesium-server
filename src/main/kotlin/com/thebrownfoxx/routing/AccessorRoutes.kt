@@ -7,6 +7,7 @@ import com.thebrownfoxx.auth.logic.authenticatedDelete
 import com.thebrownfoxx.auth.logic.authenticatedGet
 import com.thebrownfoxx.auth.logic.authenticatedPatch
 import com.thebrownfoxx.auth.logic.authenticatedPost
+import com.thebrownfoxx.models.totp.AccessorInfo
 import com.thebrownfoxx.totp.AccessorService
 import com.thebrownfoxx.totp.logic.newAccessor
 import io.ktor.http.*
@@ -60,16 +61,16 @@ fun Route.addAccessor(
     accessorService: AccessorService,
 ) {
     authenticatedPost("/accessors", adminService) {
-        val name = call.receiveNullable<String>()
-        if (name == null) {
+        val accessorInfo = call.receiveNullable<AccessorInfo>()
+        if (accessorInfo == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@authenticatedPost
         }
-        if (name.isBlank()) {
+        if (accessorInfo.name.isBlank()) {
             call.respond(HttpStatusCode.BadRequest, "Name cannot be blank")
             return@authenticatedPost
         }
-        val accessor = accessorService.add(newAccessor(name))
+        val accessor = accessorService.add(newAccessor(accessorInfo.name))
         call.respond(HttpStatusCode.Created, accessor)
     }
 }
@@ -84,16 +85,16 @@ fun Route.updateAccessorName(
             call.respond(HttpStatusCode.BadRequest)
             return@authenticatedPatch
         }
-        val name = call.receiveNullable<String>()
-        if (name == null) {
+        val accessorInfo = call.receiveNullable<AccessorInfo>()
+        if (accessorInfo == null) {
             call.respond(HttpStatusCode.BadRequest)
             return@authenticatedPatch
         }
-        if (name.isBlank()) {
+        if (accessorInfo.name.isBlank()) {
             call.respond(HttpStatusCode.BadRequest, "Name cannot be blank")
             return@authenticatedPatch
         }
-        accessorService.updateName(id, name)
+        accessorService.updateName(id, accessorInfo.name)
         call.respond(HttpStatusCode.OK)
     }
 }

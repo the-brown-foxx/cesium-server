@@ -1,7 +1,7 @@
 package com.thebrownfoxx.totp
 
-import com.thebrownfoxx.totp.models.SavedAccessor
-import com.thebrownfoxx.totp.models.UnsavedAccessor
+import com.thebrownfoxx.models.totp.SavedAccessor
+import com.thebrownfoxx.models.totp.UnsavedAccessor
 
 interface AccessorService {
     suspend fun getAll(): List<SavedAccessor>

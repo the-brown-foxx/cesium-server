@@ -1,8 +1,7 @@
 package com.thebrownfoxx.totp.logic
 
-import com.thebrownfoxx.totp.models.AES_KEY_SEED
-import com.thebrownfoxx.totp.models.Base32
-import com.thebrownfoxx.totp.models.EncryptedBase32
+import com.thebrownfoxx.models.totp.Base32
+import com.thebrownfoxx.models.totp.EncryptedBase32
 import java.util.*
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec

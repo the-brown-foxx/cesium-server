@@ -1,9 +1,9 @@
 package com.thebrownfoxx.auth.logic
 
 import com.auth0.jwt.algorithms.Algorithm
-import com.thebrownfoxx.auth.models.JWT
-import com.thebrownfoxx.auth.models.JWTClaim
-import com.thebrownfoxx.auth.models.JWTConfig
+import com.thebrownfoxx.models.auth.JWT
+import com.thebrownfoxx.models.auth.JWTClaim
+import com.thebrownfoxx.models.auth.JWTConfig
 import io.ktor.server.auth.jwt.*
 import java.util.*
 import com.auth0.jwt.JWT as JWTBuilder

@@ -1,7 +1,7 @@
 package com.thebrownfoxx.plugins
 
 import com.thebrownfoxx.auth.AdminService
-import com.thebrownfoxx.auth.models.JWTConfig
+import com.thebrownfoxx.models.auth.JWTConfig
 import com.thebrownfoxx.routing.accessorRoutes
 import com.thebrownfoxx.routing.adminRoutes
 import com.thebrownfoxx.totp.AccessorService

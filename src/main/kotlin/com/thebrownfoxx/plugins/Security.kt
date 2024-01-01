@@ -2,7 +2,7 @@ package com.thebrownfoxx.plugins
 
 import com.auth0.jwt.JWT
 import com.auth0.jwt.algorithms.Algorithm
-import com.thebrownfoxx.auth.models.JWTConfig
+import com.thebrownfoxx.models.auth.JWTConfig
 import io.ktor.server.application.*
 import io.ktor.server.auth.*
 import io.ktor.server.auth.jwt.*

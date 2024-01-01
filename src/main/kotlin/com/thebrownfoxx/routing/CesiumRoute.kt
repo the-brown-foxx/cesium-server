@@ -1,7 +1,7 @@
 package com.thebrownfoxx.routing
 //
 //import com.thebrownfoxx.auth.AdminService
-//import com.thebrownfoxx.auth.models.JWTConfig
+//import auth.JWTConfig
 //import com.thebrownfoxx.totp.AccessorService
 //import io.ktor.server.application.*
 //import io.ktor.server.routing.*

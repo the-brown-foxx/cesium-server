@@ -1,6 +1,6 @@
 package com.thebrownfoxx.totp.logic
 
-import com.thebrownfoxx.totp.models.Base32
+import com.thebrownfoxx.models.totp.Base32
 
 fun generateTotpSecret(): Base32 {
     val allowedCharacters = ('a'..'z') + ('A'..'Z') + (0..9)

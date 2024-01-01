@@ -1,4 +1,4 @@
-package com.thebrownfoxx.auth.models
+package com.thebrownfoxx.models.auth
 
 data class JWTClaim(
     val key: String,

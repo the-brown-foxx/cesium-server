@@ -1,7 +1,7 @@
 package com.thebrownfoxx.auth
 
-import com.thebrownfoxx.auth.models.Admin
-import com.thebrownfoxx.auth.models.Hash
+import com.thebrownfoxx.models.auth.Admin
+import com.thebrownfoxx.models.auth.Hash
 
 interface AdminService {
     suspend fun get(): Admin

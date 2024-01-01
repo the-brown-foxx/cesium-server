@@ -1,6 +1,4 @@
-package com.thebrownfoxx.auth.models
-
-import kotlinx.serialization.Serializable
+package com.thebrownfoxx.models.auth
 
 @Serializable
 data class Admin(

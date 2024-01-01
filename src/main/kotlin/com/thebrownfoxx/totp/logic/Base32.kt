@@ -1,6 +1,6 @@
 package com.thebrownfoxx.totp.logic
 
-import com.thebrownfoxx.totp.models.Base32
+import com.thebrownfoxx.models.totp.Base32
 import org.apache.commons.codec.binary.Base32 as ApacheBase32
 
 private val base32 = ApacheBase32()

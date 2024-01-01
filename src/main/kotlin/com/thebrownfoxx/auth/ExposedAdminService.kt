@@ -1,9 +1,9 @@
 package com.thebrownfoxx.auth
 
 import com.thebrownfoxx.auth.logic.hash
-import com.thebrownfoxx.auth.models.Admin
-import com.thebrownfoxx.auth.models.Base64
-import com.thebrownfoxx.auth.models.Hash
+import com.thebrownfoxx.models.auth.Admin
+import com.thebrownfoxx.models.auth.Base64
+import com.thebrownfoxx.models.auth.Hash
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

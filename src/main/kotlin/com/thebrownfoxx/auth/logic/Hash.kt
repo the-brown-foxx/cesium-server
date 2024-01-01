@@ -1,7 +1,7 @@
 package com.thebrownfoxx.auth.logic
 
-import com.thebrownfoxx.auth.models.Base64
-import com.thebrownfoxx.auth.models.Hash
+import com.thebrownfoxx.models.auth.Base64
+import com.thebrownfoxx.models.auth.Hash
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.SecureRandom

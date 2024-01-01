@@ -25,6 +25,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":cesium-models"))
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-auth-jvm")
     implementation("io.ktor:ktor-server-auth-jwt-jvm")

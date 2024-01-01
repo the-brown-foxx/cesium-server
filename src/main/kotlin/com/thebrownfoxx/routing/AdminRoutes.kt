@@ -2,8 +2,8 @@ package com.thebrownfoxx.routing
 
 import com.thebrownfoxx.auth.AdminService
 import com.thebrownfoxx.auth.logic.*
-import com.thebrownfoxx.auth.models.ChangeCredentials
-import com.thebrownfoxx.auth.models.JWTConfig
+import com.thebrownfoxx.models.auth.ChangeCredentials
+import com.thebrownfoxx.models.auth.JWTConfig
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*

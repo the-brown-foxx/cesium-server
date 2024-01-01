@@ -1,4 +1,4 @@
-package com.thebrownfoxx.totp.models
+package com.thebrownfoxx.models.totp
 
 import kotlinx.serialization.Serializable
 

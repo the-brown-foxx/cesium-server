@@ -1,7 +1,7 @@
 package com.thebrownfoxx
 
 import com.thebrownfoxx.auth.ExposedAdminService
-import com.thebrownfoxx.auth.models.JWTConfig
+import com.thebrownfoxx.models.auth.JWTConfig
 import com.thebrownfoxx.plugins.*
 import com.thebrownfoxx.totp.ExposedAccessorService
 import io.ktor.server.application.*

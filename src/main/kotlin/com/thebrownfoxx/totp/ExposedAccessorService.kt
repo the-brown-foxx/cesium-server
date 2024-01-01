@@ -3,9 +3,9 @@ package com.thebrownfoxx.totp
 import com.thebrownfoxx.totp.logic.encrypt
 import com.thebrownfoxx.totp.logic.generateTotpSecret
 import com.thebrownfoxx.totp.logic.toBase32
-import com.thebrownfoxx.totp.models.EncryptedBase32
-import com.thebrownfoxx.totp.models.SavedAccessor
-import com.thebrownfoxx.totp.models.UnsavedAccessor
+import com.thebrownfoxx.models.totp.EncryptedBase32
+import com.thebrownfoxx.models.totp.SavedAccessor
+import com.thebrownfoxx.models.totp.UnsavedAccessor
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

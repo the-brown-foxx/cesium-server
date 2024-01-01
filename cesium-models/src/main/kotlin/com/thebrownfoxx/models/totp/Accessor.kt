@@ -1,6 +1,4 @@
-package com.thebrownfoxx.totp.models
-
-import kotlinx.serialization.Serializable
+package com.thebrownfoxx.models.totp
 
 @Serializable
 data class UnsavedAccessor(

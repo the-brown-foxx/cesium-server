@@ -17,7 +17,7 @@ fun Application.configureDatabases(
     routing {
         login(jwtConfig, adminService)
         changePassword(adminService)
-        authenticate()
+        authenticate(adminService)
 //        get("/users") {
 //            call.respond(HttpStatusCode.OK, adminService.getAll())
 //        }

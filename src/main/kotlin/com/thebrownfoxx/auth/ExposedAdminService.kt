@@ -10,10 +10,12 @@ import kotlinx.coroutines.launch
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
+import kotlin.random.Random
 
 class ExposedAdminService(private val database: Database): AdminService {
     object Admins: Table() {
         private val id = integer("id").autoIncrement()
+        val passwordKey = long("password_key")
         val passwordHash = varchar("password_hash", length = 512)
         val passwordSalt = varchar("password_salt", length = 64)
 
@@ -29,6 +31,7 @@ class ExposedAdminService(private val database: Database): AdminService {
                 dbQuery {
                     val (hash, salt) = "password".hash()
                     Admins.insert {
+                        it[passwordKey] = 0
                         it[passwordHash] = hash.value
                         it[passwordSalt] = salt.value
                     }
@@ -43,6 +46,7 @@ class ExposedAdminService(private val database: Database): AdminService {
     override suspend fun get(): Admin = dbQuery {
         Admins.selectAll().last().let {
             Admin(
+                passwordKey = it[Admins.passwordKey],
                 passwordHash = Hash(
                     value = Base64(it[Admins.passwordHash]),
                     salt = Base64(it[Admins.passwordSalt]),
@@ -55,6 +59,7 @@ class ExposedAdminService(private val database: Database): AdminService {
         val (hash, salt) = newPasswordHash
         dbQuery {
             Admins.update {
+                it[passwordKey] = Random.nextLong()
                 it[passwordHash] = hash.value
                 it[passwordSalt] = salt.value
             }

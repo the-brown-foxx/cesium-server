@@ -21,4 +21,6 @@ fun String.hash(salt: Base64 = generateSalt()): Hash {
     )
 }
 
-fun String.verify(hash: Hash) = hash(hash.salt) == hash
+infix fun String.matches(hash: Hash) = hash(hash.salt) == hash
+
+infix fun String.doesNotMatch(hash: Hash) = !matches(hash)

@@ -1,7 +1,7 @@
 package com.thebrownfoxx
 
 import com.thebrownfoxx.auth.logic.hash
-import com.thebrownfoxx.auth.logic.verify
+import com.thebrownfoxx.auth.logic.matches
 import kotlin.test.Test
 
 class HashTest {
@@ -9,7 +9,7 @@ class HashTest {
     fun hashTest() {
         val originalText = "The brown fox raw-dogged the sussy dog."
         val hash = originalText.hash()
-        assert(originalText.verify(hash))
+        assert(originalText.matches(hash))
     }
 
     @Test

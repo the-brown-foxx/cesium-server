@@ -2,16 +2,11 @@ package com.thebrownfoxx.plugins
 
 import com.thebrownfoxx.auth.AdminService
 import com.thebrownfoxx.auth.logic.authenticate
+import com.thebrownfoxx.auth.logic.changePassword
 import com.thebrownfoxx.auth.logic.login
 import com.thebrownfoxx.auth.models.JWTConfig
-import com.thebrownfoxx.auth.models.UnsavedAdmin
 import com.thebrownfoxx.totp.AccessorService
-import com.thebrownfoxx.totp.models.UnsavedAccessor
-import io.ktor.http.*
 import io.ktor.server.application.*
-import io.ktor.server.auth.*
-import io.ktor.server.request.*
-import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Application.configureDatabases(
@@ -21,6 +16,7 @@ fun Application.configureDatabases(
 ) {
     routing {
         login(jwtConfig, adminService)
+        changePassword(adminService)
         authenticate()
 //        get("/users") {
 //            call.respond(HttpStatusCode.OK, adminService.getAll())

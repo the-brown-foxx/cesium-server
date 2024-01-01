@@ -4,11 +4,10 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.thebrownfoxx.auth.models.JWT
 import com.thebrownfoxx.auth.models.JWTClaim
 import com.thebrownfoxx.auth.models.JWTConfig
-import io.ktor.server.auth.jwt.*
 import java.util.*
 import com.auth0.jwt.JWT as JWTBuilder
 
-const val USERNAME_CLAIM = "username"
+const val ADMIN_ID_CLAIM = "username"
 
 fun generateJWT(
     config: JWTConfig,
@@ -27,7 +26,5 @@ fun generateJWT(
 
 fun generateJWT(
     config: JWTConfig,
-    adminId: Int,
-) = generateJWT(config, JWTClaim(USERNAME_CLAIM, adminId.toString()))
-
-fun JWTPrincipal.getUsername() = getClaim(USERNAME_CLAIM, String::class)
+    adminId: Int = 0,
+) = generateJWT(config, JWTClaim(ADMIN_ID_CLAIM, adminId.toString()))

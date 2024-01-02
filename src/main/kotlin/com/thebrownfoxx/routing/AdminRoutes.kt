@@ -3,7 +3,7 @@ package com.thebrownfoxx.routing
 import com.thebrownfoxx.auth.AdminService
 import com.thebrownfoxx.auth.logic.*
 import com.thebrownfoxx.models.auth.ChangeCredentials
-import com.thebrownfoxx.models.auth.JWTConfig
+import com.thebrownfoxx.models.auth.JwtConfig
 import com.thebrownfoxx.models.auth.LoginCredentials
 import io.ktor.http.*
 import io.ktor.server.application.*
@@ -12,7 +12,7 @@ import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 fun Route.adminRoutes(
-    jwtConfig: JWTConfig,
+    jwtConfig: JwtConfig,
     adminService: AdminService,
 ) {
     login(jwtConfig, adminService)
@@ -21,10 +21,10 @@ fun Route.adminRoutes(
 }
 
 fun Route.login(
-    jwtConfig: JWTConfig,
+    jwtConfig: JwtConfig,
     adminService: AdminService,
 ) {
-    post("/login") {
+    post("/admin/login") {
         val loginCredentials = call.receiveNullable<LoginCredentials>()
         if (loginCredentials == null) {
             call.respond(HttpStatusCode.BadRequest)
@@ -35,12 +35,12 @@ fun Route.login(
             call.respond(HttpStatusCode.Unauthorized)
             return@post
         }
-        call.respond(HttpStatusCode.OK, generateJWT(jwtConfig, admin.passwordKey))
+        call.respond(HttpStatusCode.OK, generateJwt(jwtConfig, admin.passwordKey))
     }
 }
 
 fun Route.changePassword(adminService: AdminService) {
-    authenticatedPatch("/change-password", adminService) {
+    authenticatedPatch("/admin/password", adminService) {
         val credentials = call.receiveNullable<ChangeCredentials>()
         if (credentials == null) {
             call.respond(HttpStatusCode.BadRequest)
@@ -63,7 +63,7 @@ fun Route.changePassword(adminService: AdminService) {
 }
 
 fun Route.authenticate(adminService: AdminService) {
-    authenticatedGet("/authenticate", adminService) {
+    authenticatedGet("/admin/authenticate", adminService) {
         call.respond(HttpStatusCode.OK)
     }
 }

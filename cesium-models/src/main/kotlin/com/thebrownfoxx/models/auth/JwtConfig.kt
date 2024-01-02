@@ -2,7 +2,7 @@ package com.thebrownfoxx.models.auth
 
 import kotlin.time.Duration
 
-data class JWTConfig(
+data class JwtConfig(
     val realm: String,
     val issuer: String,
     val audience: String,

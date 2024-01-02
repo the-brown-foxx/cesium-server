@@ -1,7 +1,7 @@
 package com.thebrownfoxx
 
 import com.thebrownfoxx.auth.ExposedAdminService
-import com.thebrownfoxx.models.auth.JWTConfig
+import com.thebrownfoxx.models.auth.JwtConfig
 import com.thebrownfoxx.plugins.*
 import com.thebrownfoxx.totp.ExposedAccessorService
 import io.ktor.server.application.*
@@ -16,7 +16,7 @@ fun main() {
 }
 
 fun Application.module() {
-    val jwtConfig = JWTConfig(
+    val jwtConfig = JwtConfig(
         realm = "ktor sample app",
         issuer = "https://jwt-provider-domain/",
         audience = "jwt-audience",

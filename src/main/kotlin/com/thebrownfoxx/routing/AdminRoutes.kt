@@ -64,6 +64,6 @@ fun Route.changePassword(adminService: AdminService) {
 
 fun Route.authenticate(adminService: AdminService) {
     authenticatedGet("/admin/authenticate", adminService) {
-        call.respond(HttpStatusCode.OK)
+        call.respond(HttpStatusCode.OK, "Authenticated")
     }
 }

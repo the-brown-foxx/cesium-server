@@ -95,7 +95,7 @@ fun Route.updateAccessorName(
             return@authenticatedPatch
         }
         accessorService.updateName(id, accessorInfo.name)
-        call.respond(HttpStatusCode.OK)
+        call.respond(HttpStatusCode.OK, "Accessor name updated")
     }
 }
 
@@ -110,7 +110,7 @@ fun Route.refreshAccessorTotpSecret(
             return@authenticatedPatch
         }
         accessorService.refreshTotpSecret(id)
-        call.respond(HttpStatusCode.OK)
+        call.respond(HttpStatusCode.OK, "Accessor TOTP secret refreshed")
     }
 }
 
@@ -125,6 +125,6 @@ fun Route.deleteAccessor(
             return@authenticatedDelete
         }
         accessorService.delete(id)
-        call.respond(HttpStatusCode.OK)
+        call.respond(HttpStatusCode.OK, "Accessor deleted")
     }
 }

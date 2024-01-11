@@ -9,7 +9,9 @@ import com.thebrownfoxx.auth.logic.authenticatedPatch
 import com.thebrownfoxx.auth.logic.authenticatedPost
 import com.thebrownfoxx.models.totp.AccessorInfo
 import com.thebrownfoxx.totp.AccessorService
+import com.thebrownfoxx.totp.logic.decrypt
 import com.thebrownfoxx.totp.logic.newAccessor
+import dev.turingcomplete.kotlinonetimepassword.GoogleAuthenticator
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -26,6 +28,7 @@ fun Route.accessorRoutes(
     updateAccessorName(adminService, accessorService)
     refreshAccessorTotpSecret(adminService, accessorService)
     deleteAccessor(adminService, accessorService)
+    authenticateAccessor(accessorService)
 }
 
 fun Route.getAccessors(
@@ -126,5 +129,28 @@ fun Route.deleteAccessor(
         }
         accessorService.delete(id)
         call.respond(HttpStatusCode.OK, "Accessor deleted")
+    }
+}
+
+fun Route.authenticateAccessor(accessorService: AccessorService) {
+    get("/accessors/{id}/{totp}") {
+        val id = call.parameters["id"]?.toInt()
+        val totp = call.parameters["totp"]
+        if (id == null || totp == null) {
+            call.respond(HttpStatusCode.BadRequest)
+            return@get
+        }
+        val accessor = accessorService.get(id)
+        if (accessor == null) {
+            call.respond(HttpStatusCode.NotFound)
+            return@get
+        }
+        val googleAuthenticator = GoogleAuthenticator(base32secret = accessor.totpSecret.decrypt().value.encodeToByteArray())
+        val correctTotp = googleAuthenticator.generate()
+        if (totp == correctTotp) {
+            call.respond(HttpStatusCode.OK, "Authenticated")
+        } else {
+            call.respond(HttpStatusCode.Unauthorized)
+        }
     }
 }

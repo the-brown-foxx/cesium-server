@@ -1,5 +1,6 @@
 package com.thebrownfoxx.totp
 
+import com.thebrownfoxx.models.totp.Base32
 import com.thebrownfoxx.totp.logic.encrypt
 import com.thebrownfoxx.totp.logic.generateTotpSecret
 import com.thebrownfoxx.totp.logic.toBase32
@@ -18,7 +19,7 @@ class ExposedAccessorService(database: Database): AccessorService {
     object Accessors: Table() {
         val id = integer("id").autoIncrement()
         val name = varchar("name", length = 50)
-        val totpSecret = varchar("totp_secret", length = 50)
+        val totpSecret = varchar("totp_secret", length = 255)
 
         override val primaryKey = PrimaryKey(id)
     }
@@ -32,7 +33,7 @@ class ExposedAccessorService(database: Database): AccessorService {
                 add(
                     UnsavedAccessor(
                         name = "Justine Manalansan",
-                        totpSecret = "e7fu".toBase32().encrypt(),
+                        totpSecret = Base32("ABCDEFGHIJKLMNOP").encrypt(),
                     )
                 )
                 add(

@@ -1,18 +1,15 @@
 package com.thebrownfoxx.auth
 
-import com.thebrownfoxx.auth.logic.hash
 import com.thebrownfoxx.models.auth.Admin
 import com.thebrownfoxx.models.auth.Base64
 import com.thebrownfoxx.models.auth.Hash
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
 import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.random.Random
 
-class ExposedAdminService(private val database: Database): AdminService {
+class ExposedAdminService(database: Database): AdminService {
     object Admins: Table() {
         private val id = integer("id").autoIncrement()
         val passwordKey = long("password_key")
@@ -23,20 +20,8 @@ class ExposedAdminService(private val database: Database): AdminService {
     }
 
     init {
-        val scope = CoroutineScope(Dispatchers.IO)
-
         transaction(database) {
             SchemaUtils.create(Admins)
-            scope.launch {
-                dbQuery {
-                    val (hash, salt) = "password".hash()
-                    Admins.insert {
-                        it[passwordKey] = 0
-                        it[passwordHash] = hash.value
-                        it[passwordSalt] = salt.value
-                    }
-                }
-            }
         }
     }
 

@@ -1,15 +1,11 @@
 package com.thebrownfoxx.totp
 
-import com.thebrownfoxx.models.totp.Base32
-import com.thebrownfoxx.totp.logic.encrypt
-import com.thebrownfoxx.totp.logic.generateTotpSecret
-import com.thebrownfoxx.totp.logic.toBase32
 import com.thebrownfoxx.models.totp.EncryptedBase32
 import com.thebrownfoxx.models.totp.SavedAccessor
 import com.thebrownfoxx.models.totp.UnsavedAccessor
-import kotlinx.coroutines.CoroutineScope
+import com.thebrownfoxx.totp.logic.encrypt
+import com.thebrownfoxx.totp.logic.generateTotpSecret
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.experimental.newSuspendedTransaction
@@ -25,30 +21,8 @@ class ExposedAccessorService(database: Database): AccessorService {
     }
 
     init {
-        val scope = CoroutineScope(Dispatchers.IO)
-
         transaction(database) {
             SchemaUtils.create(Accessors)
-            scope.launch {
-                add(
-                    UnsavedAccessor(
-                        name = "Justine Manalansan",
-                        totpSecret = Base32("ABCDEFGHIJKLMNOP").encrypt(),
-                    )
-                )
-                add(
-                    UnsavedAccessor(
-                        name = "Jericho Diaz",
-                        totpSecret = "ABCD".toBase32().encrypt(),
-                    )
-                )
-                add(
-                    UnsavedAccessor(
-                        name = "Jonel David",
-                        totpSecret = "3245f4t".toBase32().encrypt(),
-                    )
-                )
-            }
         }
     }
 

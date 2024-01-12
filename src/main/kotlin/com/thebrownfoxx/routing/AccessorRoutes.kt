@@ -17,6 +17,8 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.util.*
+import kotlin.time.Duration.Companion.seconds
 
 fun Route.accessorRoutes(
     adminService: AdminService,
@@ -145,9 +147,11 @@ fun Route.authenticateAccessor(accessorService: AccessorService) {
             call.respond(HttpStatusCode.NotFound)
             return@get
         }
-        val googleAuthenticator = GoogleAuthenticator(base32secret = accessor.totpSecret.decrypt().value.encodeToByteArray())
-        val correctTotp = googleAuthenticator.generate()
-        if (totp == correctTotp) {
+        val x = accessor.totpSecret.decrypt().value
+        val googleAuthenticator = GoogleAuthenticator(base32secret = x.encodeToByteArray())
+        val lastTotp = googleAuthenticator.generate(Date(System.currentTimeMillis() - 30.seconds.inWholeMilliseconds))
+        val currentTotp = googleAuthenticator.generate()
+        if (totp == currentTotp || totp == lastTotp) {
             call.respond(HttpStatusCode.OK, "Authenticated")
         } else {
             call.respond(HttpStatusCode.Unauthorized)

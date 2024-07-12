@@ -23,4 +23,4 @@ java -jar cesium-server.jar
 ```
 
 ## Client
-We recommend using the companion Android application for managing your users. You can get it here: https://github.com/the-brown-foxx/cesium-android
+We recommend using the companion Android application for managing your accessors. You can get it here: https://github.com/the-brown-foxx/cesium-android

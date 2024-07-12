@@ -22,5 +22,7 @@ $Env:AES_KEY_SEED = 6969696969696969696
 java -jar cesium-server.jar
 ```
 
+> The server defaults to using the password `password` until set.
+
 ## Client
 We recommend using the companion Android application for managing your accessors. You can get it here: https://github.com/the-brown-foxx/cesium-android

@@ -2,7 +2,7 @@
 Cesium is a time-based OTP (TOTP) server. It is built with Ktor and runs on the Java Virtual Machine. The server generates a TOTP secret for each accessor, which can be checked via the `GET /accessors` endpoint, or by using the recommended client app. The secret can be keyed into the accessor's Google Authenticator app, which will generate a TOTP in sync with the server. The TOTP can be verified using the `GET /accessors/{id}/{totp}` endpoint.
 
 ## Cesium Door
-This application is a generic TOTP server that can be used for any application that might require TOTP. However, it was primarily designed for the Cesium Door, which is a TOTP door created by our class as a project for one of college courses. The door uses the `GET /accessors/{id}/{totp}` endpoint to check for an accessor's authentication. If used with the door and the Android client app, you do not need to mess with the API yourself.
+This application is a generic TOTP server that can be used for any application that might require TOTP. However, it was primarily designed for the Cesium Door, which is a TOTP door created by our class as a project for one of our college courses. The door uses the `GET /accessors/{id}/{totp}` endpoint to check for an accessor's authentication. If used with the door and the Android client app, you do not need to mess with the API yourself.
 
 ## Run the server
 

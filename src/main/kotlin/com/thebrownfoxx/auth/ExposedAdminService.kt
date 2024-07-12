@@ -1,5 +1,6 @@
 package com.thebrownfoxx.auth
 
+import com.thebrownfoxx.auth.logic.hash
 import com.thebrownfoxx.models.auth.Admin
 import com.thebrownfoxx.models.auth.Base64
 import com.thebrownfoxx.models.auth.Hash
@@ -22,6 +23,15 @@ class ExposedAdminService(database: Database): AdminService {
     init {
         transaction(database) {
             SchemaUtils.create(Admins)
+
+            if (Admins.selectAll().toList().isEmpty()) {
+                Admins.insert {
+                    val (hash, salt) = "password".hash()
+                    it[passwordKey] = 1
+                    it[passwordHash] = hash.value
+                    it[passwordSalt] = salt.value
+                }
+            }
         }
     }
 

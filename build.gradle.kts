@@ -20,6 +20,12 @@ application {
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
 }
 
+ktor {
+    fatJar {
+        archiveFileName.set("cesium-server.jar")
+    }
+}
+
 repositories {
     mavenCentral()
 }
@@ -43,4 +49,8 @@ dependencies {
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
     testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.7")
+}
+
+kotlin {
+    jvmToolchain(17)
 }
